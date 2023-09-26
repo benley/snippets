@@ -211,6 +211,12 @@ def user_page_handler():
         'snippets': snippets,
         'null_category': models.NULL_CATEGORY,
     }
+    do_export = flask.request.args.get('export', 0) == '1'
+    if do_export:
+        return flask.Response(
+            flask.render_template('user_snippets_export.md', **template_values),
+            mimetype='text/markdown'
+        )
     return flask.render_template('user_snippets.html', **template_values)
 
 
